@@ -12,41 +12,45 @@ namespace DemoCodes.AspNetCoreService.Data.QueryObjects.Impl
     private long pageSize = 0;
     private long pageNumber = 0;
 
-    public string Sql => CreateSqlTemplate();
-    public object QueryParams => CreateQueryParams();
-
-    public IQueryObject AtCustomsWhithType(ushort customsType)
+    public ISelectDocListPage AtCustomsWhithType(ushort customsType)
     {
       this.customsType = customsType;
       return this;
     }
 
-    public IQueryObject CreatedAfter(DateTime creationDate)
+    public QueryObject Build()
+    {
+      return new QueryObject(
+        CreateSqlTemplate(),
+        CreateQueryParams());
+    }
+
+    public ISelectDocListPage CreatedAfter(DateTime creationDate)
     {
       this.creationDate = creationDate;
       return this;
     }
 
-    public IQueryObject EndDateNotEarlier(DateTime endDate)
+    public ISelectDocListPage EndDateNotEarlier(DateTime endDate)
     {
       this.endDate = endDate;
       return this;
     }
 
-    public IQueryObject ForDeclarant(string declarantId)
+    public ISelectDocListPage ForDeclarant(string declarantId)
     {
       this.declarantId = declarantId;
       return this;
     }
 
-    public IQueryObject GetPage(uint pageNumber, uint pageSize)
+    public ISelectDocListPage GetPage(uint pageNumber, uint pageSize)
     {
       this.pageNumber = pageNumber;
       this.pageSize = pageSize;
       return this;
     }
 
-    public IQueryObject LastUsageNotEarlier(DateTime lastUsageDate)
+    public ISelectDocListPage LastUsageNotEarlier(DateTime lastUsageDate)
     {
       this.lastUsageDate = lastUsageDate;
       return this;
