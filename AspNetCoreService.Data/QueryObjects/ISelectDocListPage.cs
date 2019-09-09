@@ -28,9 +28,17 @@ namespace DemoCodes.AspNetCoreService.Data.QueryObjects
     /// </summary>
     ISelectDocListPage LastUsageNotEarlier(DateTime lastUsageDate);
     /// <summary>
+    ///   Указывает порядок следования документов по времени создания
+    /// </summary>
+    /// <param name="newerDocsFirst">Порядок следования документов: 
+    ///   true - вначале более новые документы
+    ///   false - вначале более старые документы
+    /// </param>
+    ISelectDocListPage NewerDocsFirst(bool newerDocsFirst);
+    /// <summary>
     ///   Указывает номер требуемой страницы
     /// </summary>
-    /// <param name="pageNumber">Номер страницы, начиная от 0</param>
+    /// <param name="pageNumber">Номер страницы, начиная от 1</param>
     /// <param name="pageSize">Размер одной страницы</param>
     ISelectDocListPage GetPage(uint pageNumber, uint pageSize);
   }

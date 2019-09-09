@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>DemoCodes.AspNetCoreService.Queries</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AspNetCoreService.Data\AspNetCoreService.Data.csproj" />
+    <ProjectReference Include="..\AspNetCoreService.Models\AspNetCoreService.Models.csproj" />
+  </ItemGroup>
+
+</Project>

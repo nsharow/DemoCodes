@@ -6,9 +6,10 @@ namespace DemoCodes.AspNetCoreService.Data.QueryObjects.Impl
   {
     private string declarantId = "";
     private int customsType = 1;
-    private DateTime creationDate = DateTime.MinValue.Date;
-    private DateTime endDate = DateTime.MinValue.Date;
+    private DateTime fromCreationDate = DateTime.MinValue.Date;
+    private DateTime minEndDate = DateTime.MinValue.Date;
     private DateTime lastUsageDate = DateTime.MinValue.Date;
+    private bool newerDocsFirst = true;
     private long pageSize = 0;
     private long pageNumber = 0;
 
@@ -21,25 +22,31 @@ namespace DemoCodes.AspNetCoreService.Data.QueryObjects.Impl
     public QueryObject Build()
     {
       return new QueryObject(
-        CreateSqlTemplate(),
+        CreateSqlTemplate(newerDocsFirst),
         CreateQueryParams());
     }
 
     public ISelectDocListPage CreatedAfter(DateTime creationDate)
     {
-      this.creationDate = creationDate;
+      this.fromCreationDate = creationDate;
       return this;
     }
 
     public ISelectDocListPage EndDateNotEarlier(DateTime endDate)
     {
-      this.endDate = endDate;
+      this.minEndDate = endDate;
       return this;
     }
 
     public ISelectDocListPage ForDeclarant(string declarantId)
     {
       this.declarantId = declarantId;
+      return this;
+    }
+
+    public ISelectDocListPage NewerDocsFirst(bool newerDocsFirst)
+    {
+      this.newerDocsFirst = newerDocsFirst;
       return this;
     }
 
@@ -56,7 +63,7 @@ namespace DemoCodes.AspNetCoreService.Data.QueryObjects.Impl
       return this;
     }
 
-    protected abstract string CreateSqlTemplate();
+    protected abstract string CreateSqlTemplate(bool newerDocsFirst);
 
     private object CreateQueryParams()
     {
@@ -65,10 +72,10 @@ namespace DemoCodes.AspNetCoreService.Data.QueryObjects.Impl
         declarantId,
         customsType,
         lastUsageDate,
-        creationDate,
-        endDate,
-        min = pageNumber * pageSize,
-        max = pageSize * (pageNumber + 1) + 1
+        fromCreationDate,
+        minEndDate,
+        minRow = (pageNumber - 1) * pageSize + 1,
+        maxRow = pageNumber * pageSize
       };
     }
   }
