@@ -12,6 +12,11 @@ namespace DemoCodes.AspNetCoreService.Infrastructure.Data
     public const string Oracle = "oracle";
   }
 
+  /// <summary>
+  /// Реализация фабрики соединений к БД,
+  /// получает из конфигурации список <see cref="DbConnectionConfig" />,
+  /// по которым настраивает провайдеры подключений
+  /// </summary>
   class DbConnectionFactory : IConnectionFactory
   {
     private IDictionary<string, DbConnectionConfig> configurationList;
@@ -22,6 +27,7 @@ namespace DemoCodes.AspNetCoreService.Infrastructure.Data
         ?? throw new ArgumentNullException(nameof(configurationList));
     }
 
+    #region IConnectionFactory implrmrntation
     public IDbConnection Create(string name)
     {
       DbConnectionConfig dbConnectionConfig = null;
@@ -52,5 +58,6 @@ namespace DemoCodes.AspNetCoreService.Infrastructure.Data
       }
       return new OracleConnection(builder.ConnectionString);
     }
+    #endregion
   }
 }

@@ -1,6 +1,11 @@
 ﻿namespace DemoCodes.AspNetCoreService.Data.QueryObjects.Impl.Ora
 {
-  class SelectDocListPageLite : SelectDocListPage
+  /// <summary>
+  /// Реализация строителя объект-запроса
+  /// получения страницы с документами в архиве декларанта
+  /// для СУБД Oracle
+  /// </summary>
+  class SelectDocListPageOra : SelectDocListPage
   {
     static readonly string sqlTemplate =
       "select *"
@@ -26,7 +31,11 @@
 
     private readonly string schemeOwner;
 
-    public SelectDocListPageLite(string schemeOwner)
+    /// <summary>
+    /// Конструктор
+    /// </summary>
+    /// <param name="schemeOwner">Имя владельца схемы</param>
+    public SelectDocListPageOra(string schemeOwner)
     {
       this.schemeOwner = schemeOwner;
     }

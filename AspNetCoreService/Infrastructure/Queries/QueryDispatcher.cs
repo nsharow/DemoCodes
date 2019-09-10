@@ -5,6 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace DemoCodes.AspNetCoreService.Infrastructure.Queries
 {
+  /// <summary>
+  /// Реализация диспетчера пользовательских запросов,
+  /// диспетчеризация происходит посредством  DI-контейнера
+  /// </summary>
   public class QueryDispatcher : IQueryDispatcher
   {
     private IServiceProvider queryResolver;

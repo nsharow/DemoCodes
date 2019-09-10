@@ -1,6 +1,7 @@
 ﻿using DemoCodes.AspNetCoreService.Configuration;
 using DemoCodes.AspNetCoreService.Data.QueryObjects;
 using DemoCodes.AspNetCoreService.Data.QueryObjects.Impl.Ora;
+using DemoCodes.AspNetCoreService.Infrastructure.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -8,8 +9,11 @@ using System.Collections.Generic;
 
 namespace DemoCodes.AspNetCoreService.Infrastructure.Di
 {
-  using QueriesConstants = Queries.Constants;
+  using QueriesConstants = DemoCodes.AspNetCoreService.Queries.Constants;
 
+  /// <summary>
+  /// Расширения для конфигурации слоя доступа к данным
+  /// </summary>
   static class DataLayerExtentions
   {
     public static void ConfigureDataLayer(this IServiceCollection services, IConfiguration configuration)

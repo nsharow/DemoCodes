@@ -8,12 +8,20 @@ using System.Linq;
 
 namespace DemoCodes.AspNetCoreService.Queries.Handlers
 {
+  /// <summary>
+  /// Обработчик запроса на получение страницы с документами в архиве декларанта
+  /// </summary>
   public class ArchiveDocPageQueryHandler
     : IQueryHandler<ArchiveDocPageQuery, ArchiveDocumentPage>
   {
     private IConnectionFactory connectionFactory;
     private IQueryObjectBuilderFactory queryObjectBuilderFactory;
 
+    /// <summary>
+    /// Конструктор
+    /// </summary>
+    /// <param name="connectionFactory">Фабрика для получения подключения к БД</param>
+    /// <param name="queryObjectBuilderFactory">Фабрика для получения строителей объект-запросов</param>
     public ArchiveDocPageQueryHandler(
       IConnectionFactory connectionFactory,
       IQueryObjectBuilderFactory queryObjectBuilderFactory)
@@ -24,6 +32,7 @@ namespace DemoCodes.AspNetCoreService.Queries.Handlers
         ?? throw new ArgumentNullException(nameof(queryObjectBuilderFactory));
     }
 
+    #region IQueryHandler implementation
     public async Task<ArchiveDocumentPage> HandleAsync(ArchiveDocPageQuery query)
     {
       using (var connection = connectionFactory.Create(Constants.ArchiveDbName))
@@ -63,5 +72,6 @@ namespace DemoCodes.AspNetCoreService.Queries.Handlers
         ? DateTime.Today.AddYears(-1 * Constants.MaxLastUsageYears)
         : DateTime.Today.AddDays(-1 * (int)lastUsageDays);
     }
+    #endregion
   }
 }

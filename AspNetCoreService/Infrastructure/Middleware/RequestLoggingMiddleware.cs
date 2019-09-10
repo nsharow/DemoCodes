@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace DemoCodes.AspNetCoreService.Infrastructure.Middleware
 {
   /// <summary>
-  /// Компонент middleware для логирования 
+  /// Компонент middleware для логирования запросов
   /// </summary>
   public class RequestLoggingMiddleware
   {
@@ -61,23 +61,22 @@ namespace DemoCodes.AspNetCoreService.Infrastructure.Middleware
             queryString,
             ip, 
             e.Message);
-        context.Response.StatusCode = 500;
-        await context.Response.WriteAsync("Ошибка выполнения запроса");
+        throw e;
       }
-      else
-      {
-        var level = sw.ElapsedMilliseconds >= kWarnPeriod 
+      var level = sw.ElapsedMilliseconds >= kWarnPeriod
           ? LogLevel.Warning
           : LogLevel.Information;
-        logger.Log(level, "{QueryId}. Окончание выполнения запроса {QueryString}. IP клиента: {ClientIP}. Период: {Period}",
-            context.TraceIdentifier,
-            queryString,
-            ip, 
-            sw.ElapsedMilliseconds);
-      }
+      logger.Log(level, "{QueryId}. Окончание выполнения запроса {QueryString}. IP клиента: {ClientIP}. Период: {Period}",
+          context.TraceIdentifier,
+          queryString,
+          ip,
+          sw.ElapsedMilliseconds);
     }
   }
 
+  /// <summary>
+  /// Расширение для конфигурирования компонента middleware логирования
+  /// </summary>
   public static class RequestLoggingMiddlewareExtentions
   {
     public static IApplicationBuilder UseRequestLogging(this IApplicationBuilder builder,

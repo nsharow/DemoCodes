@@ -2,6 +2,10 @@
 
 namespace DemoCodes.AspNetCoreService.Data.QueryObjects.Impl
 {
+  /// <summary>
+  /// Базовый клас для всех строителей объект-запроса
+  /// получения страницы с документами в архиве декларанта
+  /// </summary>
   abstract class SelectDocListPage : ISelectDocListPage
   {
     private string declarantId = "";
@@ -11,19 +15,13 @@ namespace DemoCodes.AspNetCoreService.Data.QueryObjects.Impl
     private DateTime lastUsageDate = DateTime.MinValue.Date;
     private bool newerDocsFirst = true;
     private long pageSize = 0;
-    private long pageNumber = 0;
+    private long pageNumber = 1;
 
+    #region ISelectDocListPage implementation
     public ISelectDocListPage AtCustomsWhithType(ushort customsType)
     {
       this.customsType = customsType;
       return this;
-    }
-
-    public QueryObject Build()
-    {
-      return new QueryObject(
-        CreateSqlTemplate(newerDocsFirst),
-        CreateQueryParams());
     }
 
     public ISelectDocListPage CreatedAfter(DateTime creationDate)
@@ -62,9 +60,27 @@ namespace DemoCodes.AspNetCoreService.Data.QueryObjects.Impl
       this.lastUsageDate = lastUsageDate;
       return this;
     }
+    #endregion
 
+    #region IQueryObjectBuilder implementation
+    public QueryObject Build()
+    {
+      return new QueryObject(
+        CreateSqlTemplate(newerDocsFirst),
+        CreateQueryParams());
+    }
+
+    /// <summary>
+    /// Получение строки SQL-запроса для конкретной реализации строителя
+    /// </summary>
+    /// <param name="newerDocsFirst">Сортировать документы по времени создания</param>
+    /// <returns>Строка SQL-запроса</returns>
     protected abstract string CreateSqlTemplate(bool newerDocsFirst);
 
+    /// <summary>
+    /// Создание объекта с параметрами для использования в Dapper
+    /// </summary>
+    /// <returns>Объект с параметрами запроса</returns>
     private object CreateQueryParams()
     {
       return new
@@ -78,5 +94,6 @@ namespace DemoCodes.AspNetCoreService.Data.QueryObjects.Impl
         maxRow = pageNumber * pageSize
       };
     }
+    #endregion
   }
 }

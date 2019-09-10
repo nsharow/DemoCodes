@@ -10,12 +10,17 @@
     ///   Строка SQL-запроса
     /// </summary>
     public string Sql { get; }
-    
+
     /// <summary>
-    ///   Список параметров запроса
+    ///  Объект с параметрами для передачи в Dapper
     /// </summary>
     public object QueryParams { get; }
 
+    /// <summary>
+    ///   Конструктор
+    /// </summary>
+    /// <param name="sqlString">Строка с SQL-запросом</param>
+    /// <param name="parameters">Объект с параметрами для передачи в Dapper</param>
     public QueryObject(string sqlString, object parameters)
     {
       Sql = sqlString;
