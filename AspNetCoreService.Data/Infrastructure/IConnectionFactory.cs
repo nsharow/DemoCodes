@@ -11,6 +11,6 @@ namespace DemoCodes.AspNetCoreService.Data.Infrastructure
     ///   Создает <see cref="IDbConnection" /> />
     /// </summary>
     /// <param name="name">Имя строки подключения</param>
-    IDbConnection Create();
+    IDbConnection Create(string name);
   }
 }

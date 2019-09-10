@@ -26,7 +26,7 @@ namespace DemoCodes.AspNetCoreService.Queries.Handlers
 
     public async Task<ArchiveDocumentPage> HandleAsync(ArchiveDocPageQuery query)
     {
-      using (var connection = connectionFactory.Create())
+      using (var connection = connectionFactory.Create(Constants.ArchiveDbName))
       {
         ArchiveDocument[] docList =
           (await connection.QueryAsync<ArchiveDocument>(BuildQueryObject(query)))

@@ -16,10 +16,13 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.4.10" />
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.31" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Infrastructure\" />
+    <ProjectReference Include="..\AspNetCoreService.Data\AspNetCoreService.Data.csproj" />
+    <ProjectReference Include="..\AspNetCoreService.Models\AspNetCoreService.Models.csproj" />
+    <ProjectReference Include="..\AspNetCoreService.Queries\AspNetCoreService.Queries.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
