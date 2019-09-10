@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 
-namespace DemoCodes.AspNetCoreService.Infrastructure
+namespace DemoCodes.AspNetCoreService.Infrastructure.Data
 {
   static class DbProviders
   {

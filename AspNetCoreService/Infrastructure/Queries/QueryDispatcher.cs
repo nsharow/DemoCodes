@@ -3,7 +3,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DemoCodes.AspNetCoreService.Infrastructure
+namespace DemoCodes.AspNetCoreService.Infrastructure.Queries
 {
   public class QueryDispatcher : IQueryDispatcher
   {

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace DemoCodes.AspNetCoreService.Infrastructure
+namespace DemoCodes.AspNetCoreService.Infrastructure.Queries
 {
   public interface IQueryDispatcher
   {

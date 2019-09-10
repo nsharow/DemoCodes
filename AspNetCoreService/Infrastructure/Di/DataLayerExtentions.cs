@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 
-namespace DemoCodes.AspNetCoreService.Infrastructure
+namespace DemoCodes.AspNetCoreService.Infrastructure.Di
 {
   using QueriesConstants = Queries.Constants;
 
@@ -14,9 +14,10 @@ namespace DemoCodes.AspNetCoreService.Infrastructure
   {
     public static void ConfigureDataLayer(this IServiceCollection services, IConfiguration configuration)
     {
+      var ser = services ?? throw new ArgumentNullException(nameof(services));
       var dbConnectionList = configuration.GetSection(ConfigurationConstants.DbConnectionsSection)
         .Get<Dictionary<string,DbConnectionConfig>>();      
-      ConfigureArchiveDataLayer(services, dbConnectionList);
+      ConfigureArchiveDataLayer(ser, dbConnectionList);
     }
 
     private static void ConfigureArchiveDataLayer(IServiceCollection services,
