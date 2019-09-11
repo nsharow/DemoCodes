@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using DemoCodes.AspNetCoreService.Infrastructure.Di;
+using DemoCodes.AspNetCoreService.Infrastructure.Middleware;
 
 namespace DemoCodes.AspNetCoreService
 {
@@ -24,7 +20,11 @@ namespace DemoCodes.AspNetCoreService
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+      services.AddResponseCompression();
+      services.AddOptions();
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+      services.ConfigureValidationProblemDetails();
+      services.AddSwagger();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,6 +36,7 @@ namespace DemoCodes.AspNetCoreService
       }
 
       app.UseMvc();
+      app.UseSwaggerDoc();
     }
   }
 }
